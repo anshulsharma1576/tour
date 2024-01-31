@@ -1,0 +1,70 @@
+<?php
+
+session_start();
+include "loginquery.php" ;
+$sql="select asub.id, asub.subcategory,ac.category from addsubcategory asub left join addcategory ac on asub.category=ac.id order by asub.id desc";
+$v= mysqli_query($con,$sql);
+?>
+<?php
+include "header.php" ;
+?>
+<body>
+    <div class="container-fluid position-relative d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+
+            <?php
+                include "leftpane.php" ;
+            ?>
+        <div class="content">
+           
+ <?php
+include "topbar.php" ;
+?> 
+            <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-md-12 col-xl-12">
+                        <div class="h-100 bg-secondary rounded p-4">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <h6 class="mb-0">All Categories</h6>
+                                <a href="">Show All</a>
+                            </div>
+
+                            <table class="table table-bordered text-center">
+                        
+                                    <tr>
+                                    <td>S.N</td>
+                                    <td>category</td>
+                                    <td>Sub category</td>
+                                    <td>Edit/Delete</td>
+                                    </tr>
+                                    <?php
+                                    $a=1;
+                                    while($i= mysqli_fetch_assoc($v))
+                                    {
+                                    ?>
+                                    <tr>
+                                    <td><?php echo $a ;?></td>
+                                    <td><?php echo $i['category'];?></td>
+                                    <td><?php echo $i['subcategory'];?></td>
+                                    <td><a href="editsubcat.php?catid=<?php echo $i['id'];?>">Edit</a> <a href="deletesubcat.php?catid=<?php echo $i['id'];?>">Delete</a></td>
+                                    </tr>
+                                    <?php
+                                    $a++;
+
+                                    }
+                                    ?>
+                            </table>
+                        </div>
+                    </div>  
+            </div>  
+
+            <!-- Footer Start -->
+           <?php
+
+            include "footer.php";
+            ?>
