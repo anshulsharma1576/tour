@@ -1,2 +1,2 @@
 Template Name: Tour
-Template Author: Deeloper
+Template Author: Developer
